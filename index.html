@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMB2 OFFLINE Code Generator</title>
+
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/vendors/prism/prism.css"/>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body>
+
+<div class="container hero">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="maintitle">CMB2 Metabox Code Generator</h1>
+
+            <p>Use this generator to create fully functional CMB2 metaboxes easily. Save your time from boring works.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section-dark section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>General Properties</h2>
+
+                <p>Metabox properties. Use this section to define the scope of metabox, set it's id and other things.</p>
+            </div>
+        </div>
+        <div class="row">
+            <form action="">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Metabox ID</label>
+                        <input type="text" class="form-control" id="mb-id" placeholder="Metabox ID" value="metabox">
+                    </div>
+                    <div class="form-group">
+                        <label>Metabox Title</label>
+                        <input type="text" class="form-control" id="mb-title" placeholder="Title" value="Metabox Title">
+                    </div>
+                    <div class="form-group">
+                        <label>Comma Separated Scope</label>
+                        <input value="page, post" type="text" class="form-control" id="mb-object-types" placeholder="Scope">
+
+                        <p class="help-block">Where this metabox will be shown? like 'page','post' etc</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Text Domain</label>
+                        <input type="text" class="form-control" id="mb-textdomain" placeholder="Text Domain" value="cmb2">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Metabox Context</label>
+                        <select id="mb-context" class="form-control">
+                            <option value="normal">Normal</option>
+                            <option value="advance">Advance</option>
+                            <option value="side">Side</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Metabox Priority</label>
+                        <select id="mb-priority" class="form-control">
+                            <option value="default">Default</option>
+                            <option value="high">High</option>
+                            <option value="core">Core</option>
+                            <option value="low">Low</option>low
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>PHP Function Name</label>
+                        <input type="text" class="form-control" id="mb-function" value="cmb2_add_metabox">
+                        <p class="help-block">This function will hook into cmb2_init action</p>
+                    </div>
+                     <div class="form-group">
+                        <label>Prefix</label>
+                        <input type="text" class="form-control" id="mb-prefix" value="_cmb_">
+                        <p class="help-block">Start with an underscore to hide fields from custom fields list</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="section section-lite">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Metabox Fields</h2>
+                <p>Generate Metabox fields from this section</p>
+            </div>
+        </div>
+
+        <form action="" id="fields">
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="generate">
+                    <a class="btn btn-success" href="#generate-code" id="code-generator">Generate Code</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="section-dark section hidden" id="codecontainer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Generated Code</h2>
+
+                <p>Now you're happy, eh? Just copy-paste from these boxes below and go back to work, pronto!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="code">
+                    <button type="button" class="btn btn-success btn-sm" id="copy-code">Copy to clipboard</button>
+                    <code class="language-php"></code>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hidden" id="html-elems">
+    <div class="form-element hide-params">
+        <div class="row">
+            <div class="col-md-1 btn-column padding-right-0">
+                <a class="btn btn-warning btn-move-elem-up disabled" href="#move-up"><i class="fa fa-arrow-up"></i></a>
+                <a class="btn btn-warning btn-move-elem-down disabled" href="#move-down"><i class="fa fa-arrow-down"></i></a>
+            </div>
+            <div class="col-md-2">
+                <label>Field ID</label>
+                <input type="text" class="form-control mb-field-id">
+            </div>
+            <div class="col-md-2">
+                <label>Type</label>
+                <select class="form-control mb-field-type">
+                    <option selected disabled>Select a type</option>
+                    <option value="title">Title</option>
+                    <option value="text">Text</option>
+                    <option value="text_small">Text Small</option>
+                    <option value="text_medium">Text Medium</option>
+                    <option value="text_email">Text Email</option>
+                    <option value="text_url">Text URL</option>
+                    <option value="text_money">Text Money</option>
+                    <option value="textarea">Textarea</option>
+                    <option value="textarea_small">Textarea Small</option>
+                    <option value="textarea_code">Textarea Code</option>
+                    <option value="text_date">Text Date</option>
+                    <option value="text_time">Text Time</option>
+                    <option value="select_timezone">Select Timezone</option>
+                    <option value="text_date_timestamp">Text Date Timestamp</option>
+                    <option value="text_datetime_timestamp">Text Datetime Timestamp</option>
+                    <option value="text_datetime_timestamp_timezone">Serialized DateTime object</option>
+                    <option value="colorpicker">Colorpicker</option>
+                    <option value="radio">Radio</option>
+                    <option value="radio_inline">Radio Inline</option>
+                    <option value="taxonomy_radio">Taxonomy Radio</option>
+                    <option value="taxonomy_radio_inline">Taxonomy Radio Inline</option>
+                    <option value="select">Select</option>
+                    <option value="taxonomy_select">Taxonomy Select</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="multicheck">Multi Checkbox</option>
+                    <option value="multicheck_inline">Multi Checkbox Inline</option>
+                    <option value="taxonomy_multicheck">Taxonomy Multicheck</option>
+                    <option value="taxonomy_multicheck_inline">Taxonomy Multicheck Inline</option>
+                    <option value="wysiwyg">WYSIWYG</option>
+                    <option value="file">Image/File Uploader</option>
+                    <option value="file_list">Image/File list upload</option>
+                    <option value="oembed">Converts oembed urls</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Title</label>
+                <input type="text" class="form-control mb-field-title">
+            </div>
+            <div class="col-md-2">
+                <label>Default value</label>
+                <input type="text" class="form-control mb-field-default">
+            </div>
+            <div class="col-md-2 btn-column text-right">
+                <a class="btn btn-success btn-add-more-field disabled" href="#add-more"><i class="fa fa-plus"></i></a>
+                <a class="btn btn-danger btn-remove-field disabled" href="#remove"><i class="fa fa-times"></i></a>
+                <a class="btn btn-primary btn-hide-params disabled" href="#hide" title="Show/Hide parameter sections"><i class="fa fa-eye-slash"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-param row-param-primary">
+        <div class="row">
+            <div class="col-md-3 text-right"><h4>parameters</h4></div>
+            <div class="col-md-2 opt-select-container">
+                <select class="form-control input-sm opt-select opt-add-param">
+                    <option selected disabled>Select a parameter</option>
+                </select>
+            </div>
+            <div class="col-md-5 param-value-container">
+                <input type="text" class="form-control input-sm opt-option-val" placeholder="value">
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success btn-sm btn-add-more disabled" href="#add-more" data-tmplt="param_primary"><i class="fa fa-plus"></i></a>
+                <a class="btn btn-danger btn-sm btn-remove disabled" href="#remove" data-tmplt="param_primary"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-param row-options">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-3 text-right">
+                <h4>options</h4>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control input-sm opt-option-key" placeholder="key">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control input-sm opt-option-val" placeholder="value">
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success btn-sm btn-add-more" href="#add-more" data-tmplt="options"><i class="fa fa-plus"></i></a>
+                <a class="btn btn-danger btn-sm btn-remove" href="#remove" data-tmplt="options"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-param row-options-sortable">
+        <div class="row">
+            <div class="col-md-3 text-right"><h4>options</h4></div>
+            <div class="col-md-2 opt-select-container">
+                <select class="form-control input-sm opt-select opt-option-type">
+                    <option value="array" selected>Array</option>
+                    <option value="callback">Callback</option>
+                </select>
+            </div>
+            <div class="col-md-1 padding-right-0 opt-option-array">
+                <a class="btn btn-warning btn-sm btn-move-up disabled" href="#move-up"><i class="fa fa-arrow-up"></i></a>
+                <a class="btn btn-warning btn-sm btn-move-down disabled" href="#move-down"><i class="fa fa-arrow-down"></i></a>
+            </div>
+            <div class="col-md-2 opt-option-array">
+                <input type="text" class="form-control input-sm opt-option-key" placeholder="key">
+            </div>
+            <div class="col-md-2 opt-option-array">
+                <input type="text" class="form-control input-sm opt-option-val" placeholder="value">
+            </div>
+            <div class="col-md-2 opt-option-array">
+                <a class="btn btn-success btn-sm btn-add-more" href="#add-more" data-tmplt="options_sortable"><i class="fa fa-plus"></i></a>
+                <a class="btn btn-danger btn-sm btn-remove disabled" href="#remove" data-tmplt="options_sortable"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="col-md-7 opt-option-callback hidden">
+                <input type="text" class="form-control input-sm opt-option-cb-name" placeholder="Callback function name">
+            </div>
+        </div>
+    </div>
+</div><!-- html-elems -->
+
+<div class="section footer">
+    <p>Built with Love by Hasin Hayder & <a href="https://github.com/hasinhayder/cmb2-metabox-generator/graphs/contributors" target="_blank">Other Contributors</a></p>
+</div>
+
+<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/underscore-min.js" type="text/javascript"></script>
+<script src="assets/js/ZeroClipboard.min.js" type="text/javascript"></script>
+<script src="assets/vendors/prism/prism.js" type="text/javascript"></script>
+<script src="assets/js/script.js" type="text/javascript"></script>
+
+</body>
+</html>
